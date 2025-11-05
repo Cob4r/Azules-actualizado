@@ -1,0 +1,48 @@
+.card {
+background-color: white;
+border-radius: 15px;
+box-shadow: 0 4px 12px rgba(0, 31, 91, 0.2);
+padding: 20px;
+width: 260px;
+text-align: center;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+transform: translateY(-5px);
+box-shadow: 0 6px 16px rgba(0, 31, 91, 0.3);
+}
+
+.logo {
+width: 100px;
+height: 100px;
+object-fit: contain;
+margin-bottom: 15px;
+}
+
+h3 {
+color: #001f5b;
+font-size: 1.2rem;
+margin-bottom: 8px;
+}
+
+p {
+color: #666;
+font-size: 0.95rem;
+margin-bottom: 15px;
+}
+
+.btnVerMas {
+display: inline-block;
+background-color: #ffcc00;
+color: #001f5b;
+font-weight: bold;
+text-decoration: none;
+padding: 10px 18px;
+border-radius: 20px;
+transition: background-color 0.3s ease;
+}
+
+.btnVerMas:hover {
+background-color: #ffd633;
+}

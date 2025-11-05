@@ -1,0 +1,104 @@
+.perfil-equipo-container {
+background-color: #001b4a;
+color: white;
+padding-bottom: 4rem;
+min-height: 100vh;
+}
+
+.perfil-header {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: center;
+background: linear-gradient(to right, #002b7f, #0057b8);
+padding: 3rem 1rem;
+}
+
+.perfil-equipo-img {
+width: 280px;
+border-radius: 15px;
+margin: 1rem;
+border: 3px solid #ffd700;
+box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+}
+
+.perfil-info {
+max-width: 600px;
+text-align: left;
+margin: 1rem;
+}
+
+.perfil-info h1 {
+color: #ffd700;
+font-size: 2.5rem;
+margin-bottom: 0.8rem;
+}
+
+.perfil-logros {
+text-align: center;
+padding: 3rem 1rem;
+}
+
+.perfil-logros h2 {
+color: #ffd700;
+margin-bottom: 1rem;
+}
+
+.perfil-logros ul {
+list-style: none;
+padding: 0;
+}
+
+.perfil-logros li {
+margin: 0.5rem 0;
+font-size: 1.1rem;
+color: #e0e0e0;
+}
+
+.perfil-jugadores {
+text-align: center;
+padding: 3rem 1rem;
+}
+
+.perfil-jugadores h2 {
+color: #ffd700;
+margin-bottom: 2rem;
+}
+
+.jugadores-grid {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 1.5rem;
+}
+
+.jugador-card {
+background: #0a2e5c;
+border-radius: 12px;
+padding: 1rem;
+width: 160px;
+transition: transform 0.3s ease;
+box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.jugador-card:hover {
+transform: scale(1.05);
+box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.jugador-card img {
+width: 100%;
+border-radius: 10px;
+margin-bottom: 0.5rem;
+}
+
+.jugador-card h3 {
+font-size: 1.1rem;
+color: #ffd700;
+margin-bottom: 0.3rem;
+}
+
+.jugador-card p {
+font-size: 0.9rem;
+color: #ddd;
+}

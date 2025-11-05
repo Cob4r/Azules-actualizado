@@ -1,0 +1,84 @@
+.container {
+text-align: center;
+background-color: #f8f9fc;
+color: #001f5b;
+}
+
+/* Hero principal */
+.hero {
+background: linear-gradient(to right, #001f5b, #0047ab);
+color: white;
+padding: 100px 20px;
+}
+
+.hero h1 {
+font-size: 2.5rem;
+margin-bottom: 16px;
+}
+
+.hero p {
+font-size: 1.2rem;
+margin-bottom: 30px;
+}
+
+.buttons {
+display: flex;
+justify-content: center;
+gap: 20px;
+}
+
+.btnPrimary,
+.btnSecondary {
+padding: 12px 28px;
+border-radius: 25px;
+text-decoration: none;
+font-weight: 600;
+transition: all 0.3s ease;
+}
+
+.btnPrimary {
+background-color: #ffcc00;
+color: #001f5b;
+}
+
+.btnPrimary:hover {
+background-color: #ffd633;
+}
+
+.btnSecondary {
+background-color: transparent;
+color: white;
+border: 2px solid white;
+}
+
+.btnSecondary:hover {
+background-color: white;
+color: #001f5b;
+}
+
+/* Patrocinadores */
+.sponsors {
+padding: 60px 20px;
+}
+
+.sponsors h2 {
+font-size: 1.8rem;
+margin-bottom: 20px;
+}
+
+.logos {
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 30px;
+flex-wrap: wrap;
+}
+
+.logos img {
+width: 160px;
+transition: transform 0.3s ease;
+}
+
+.logos img:hover {
+transform: scale(1.05);
+}
