@@ -1,32 +1,58 @@
 import axios from "axios";
 
+// instancia de axios apuntando al backend
 const API = axios.create({
-baseURL: "http://localhost:8080",
+  baseURL: "http://localhost:8080/api",
 });
 
-// 👉 Interceptor: Agrega el token a todas las peticiones protegidas
-API.interceptors.request.use((config) => {
-const token = localStorage.getItem("jwtToken");
-if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-}
-return config;
-});
+// 🔹 Interceptor: agrega token en todas las requests
+API.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
-// 🔐 AUTENTICACIÓN
+/* =========================
+ *  AUTH
+ * =======================*/
+
+// login
+export const loginRequest = (username, password) =>
+  API.post("/auth/login", { username, password });
+
+// registro
 export const registerRequest = (username, password) =>
-API.post("/api/auth/register", { username, password });
+  API.post("/auth/register", { username, password });
 
-export const loginRequest = async (username, password) => {
-const { data } = await API.post("/api/auth/login", { username, password });
+/* =========================
+ *  CRUD EQUIPOS RECOMENDADOS
+ * =======================*/
 
-  // Guardar token
-localStorage.setItem("jwtToken", data.token);
-return data;
-};
+// obtener todos los equipos
+export const getEquiposRecomendados = () => API.get("/equipos");
 
-// ⚽ EQUIPOS CRUD
-export const getEquipos = () => API.get("/api/equipos");
-export const createEquipo = (data) => API.post("/api/equipos", data);
+// crear equipo recomendado
+export const createEquipoRecomendado = (equipo) =>
+  API.post("/equipos", equipo);
+
+// actualizar equipo recomendado
+export const updateEquipoRecomendado = (id, equipo) =>
+  API.put(`/equipos/${id}`, equipo);
+
+// eliminar equipo recomendado
+export const deleteEquipoRecomendado = (id) =>
+  API.delete(`/equipos/${id}`);
+
+/* =========================
+ *  CONTACTO (Nuevo)
+ * =======================*/
+
+export const enviarContacto = (data) =>
+  API.post("/contacto", data);
 
 export default API;

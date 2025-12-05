@@ -1,54 +1,132 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-// PASO 1: Cambia la importación para que coincida con el nuevo nombre
-import './Equipos.css'; 
-import fc25Banner from '../assets/images/fc25-banner.jpg';
-import efootballBanner from '../assets/images/efootball-banner.jpg';
-import creadoresBanner from '../assets/images/creadores-banner.jpg';
+import React, { useEffect, useState } from "react";
+import "./Equipos.css";
 
-const Equipos = () => {
-  const equipos = [
-    {
-      nombre: 'FC 25',
-      descripcion: 'Equipo profesional de FC 25 Clubes Pro.',
-      imagen: fc25Banner,
-      link: '/fc25-perfil',
-    },
-    {
-      nombre: 'eFootball',
-      descripcion: 'Equipo competitivo de eFootball 1vs1.',
-      imagen: efootballBanner,
-      link: '/efootball-perfil',
-    },
-    {
-      nombre: 'Creadores',
-      descripcion: 'Creadoras y creadores de contenido oficial del club.',
-      imagen: creadoresBanner,
-      link: '/creadores-perfil',
-    },
-  ];
+import fc25Img from "../assets/images/fc25.jpg";
+import efootballImg from "../assets/images/efootball-banner.jpg";
+import creadoresImg from "../assets/images/creadores-banner.jpg";
+
+import {
+  getEquiposRecomendados,
+  createEquipoRecomendado,
+  deleteEquipoRecomendado
+} from "../services/api";
+
+function Equipos() {
+  const token = localStorage.getItem("jwtToken");
+
+  const [recomendados, setRecomendados] = useState([]);
+  const [nombreRec, setNombreRec] = useState("");
+  const [descRec, setDescRec] = useState("");
+
+  // 🔹 SIEMPRE usar axios API !!!
+  const cargarRecomendados = async () => {
+    try {
+      const { data } = await getEquiposRecomendados();
+      setRecomendados(data);
+    } catch (err) {
+      console.log("ERROR AL CARGAR:", err);
+    }
+  };
+
+  useEffect(() => {
+    cargarRecomendados();
+  }, []);
+
+  const handleRecAdd = async (e) => {
+    e.preventDefault();
+    if (!token) return alert("Debes iniciar sesión 🚫");
+
+    try {
+      await createEquipoRecomendado({
+        nombre: nombreRec,
+        descripcion: descRec
+      });
+      setNombreRec("");
+      setDescRec("");
+      cargarRecomendados();
+    } catch (error) {
+      alert("ERROR al crear recomendación ❌");
+    }
+  };
+
+  const handleRecDelete = async (id) => {
+    if (!token) return;
+    if (!window.confirm("Eliminar recomendación?")) return;
+
+    try {
+      await deleteEquipoRecomendado(id);
+      cargarRecomendados();
+    } catch (error) {
+      alert("ERROR eliminando ❌");
+    }
+  };
 
   return (
-    <div className="equipos-container">
-      {equipos.map((equipo, index) => (
-        <div className="equipo-card" key={index}>
-          <div className="equipo-image-container">
-            <img src={equipo.imagen} alt={equipo.nombre} />
-          </div>
-          
-          {/* PASO 2: Agrega este div "contenido" */}
-          <div className="contenido">
-            <h2>{equipo.nombre}</h2>
-            <p>{equipo.descripcion}</p>
-            <Link to={equipo.link} className="equipo-btn">
-              Ver perfil
-            </Link>
-          </div>
+    <div className="container">
 
+      <h2 className="title">Equipos Oficiales</h2>
+      <div className="cardContainer">
+
+        <div className="card">
+          <img src={fc25Img} alt="EA Sports FC25" />
+          <h3>EA Sports FC 25</h3>
+          <p>Equipo competitivo 11x11 y 1vs1</p>
         </div>
-      ))}
+
+        <div className="card">
+          <img src={efootballImg} alt="eFootball" />
+          <h3>eFootball</h3>
+          <p>Campeones nacionales 1vs1</p>
+        </div>
+
+        <div className="card">
+          <img src={creadoresImg} alt="Creadores" />
+          <h3>Creadores de contenido</h3>
+          <p>Embajadores del espíritu azul</p>
+        </div>
+
+      </div>
+
+      <h2 className="title">Equipos Recomendados por la Comunidad</h2>
+
+      {recomendados.length === 0 ? (
+        <p className="noData">Todavía no hay recomendaciones</p>
+      ) : (
+        recomendados.map((r) => (
+          <div key={r.id} className="recItem">
+            <strong>{r.nombre}</strong> — {r.descripcion}
+            {token && (
+              <button className="btnDelete" onClick={() => handleRecDelete(r.id)}>
+                🗑️
+              </button>
+            )}
+          </div>
+        ))
+      )}
+
+      {token && (
+        <form className="form" onSubmit={handleRecAdd}>
+          <input
+            type="text"
+            placeholder="Nombre del equipo"
+            value={nombreRec}
+            onChange={(e) => setNombreRec(e.target.value)}
+            required
+          />
+
+          <input
+            type="text"
+            placeholder="Descripción"
+            value={descRec}
+            onChange={(e) => setDescRec(e.target.value)}
+          />
+
+          <button type="submit">Agregar</button>
+        </form>
+      )}
+
     </div>
   );
-};
+}
 
 export default Equipos;

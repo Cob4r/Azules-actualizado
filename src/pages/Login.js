@@ -1,52 +1,56 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { loginRequest } from "../services/api";
-import { useNavigate, Link } from "react-router-dom";
 import "./Login.css";
 
 function Login() {
-const [username, setUsername] = useState("");
-const [password, setPassword] = useState("");
-const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
-    await loginRequest(username, password);
-    alert("Inicio de sesión exitoso");
-    navigate("/equipos");
-    } catch (error) {
-alert("Credenciales incorrectas");
+      const res = await loginRequest(username, password);
+
+      // ⭐ IMPORTANTE → Guardamos el token con "Bearer " incluido
+      localStorage.setItem("jwtToken", "Bearer " + res.data.token);
+
+      navigate("/equipos");
+    } catch (err) {
+      setError("Usuario o contraseña incorrectos");
     }
-};
+  };
 
-return (
+  return (
     <div className="login-container">
-    <h2>Iniciar Sesión</h2>
+      <h2>Iniciar Sesión</h2>
 
-    <form onSubmit={handleLogin}>
+      {error && <p className="error">{error}</p>}
+
+      <form onSubmit={handleLogin}>
         <input
-        type="text"
-        placeholder="Usuario"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
+          type="text"
+          placeholder="Usuario"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
         />
 
         <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
         <button type="submit">Entrar</button>
-    </form>
-
-    <p>¿No tienes cuenta?</p>
-    <Link to="/register">Crear cuenta</Link>
+      </form>
     </div>
-);
+  );
 }
 
 export default Login;

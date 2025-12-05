@@ -1,73 +1,63 @@
-import React, { useState } from 'react';
-// Importamos nuestra lógica de validación
-import { validateEmail, validateName } from '../utils/validators';
-import './NewsletterForm.css';
-
-
+import React, { useState } from "react";
+import { enviarContacto } from "../services/api";
+import "./NewsletterForm.css";
 
 function NewsletterForm() {
-const [name, setName] = useState('');
-const [email, setEmail] = useState('');
-const [error, setError] = useState('');
-const [success, setSuccess] = useState('');
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
+  const [mensaje, setMensaje] = useState("");
 
-const handleSubmit = (e) => {
-    e.preventDefault(); // Evita que la página se recargue
-    setError('');
-    setSuccess('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    // --- Validación ---
-    if (!validateName(name)) {
-    setError('Por favor, ingresa un nombre válido.');
-    return;
+    if (!email.includes("@")) {
+      alert("Correo inválido ❌");
+      return;
     }
-    if (!validateEmail(email)) {
-    setError('Por favor, ingresa un correo electrónico válido.');
-    return;
+
+    try {
+      await enviarContacto({ nombre, email, mensaje });
+      
+      alert("¡Mensaje enviado! 🎉");
+      setNombre("");
+      setEmail("");
+      setMensaje("");
+    } catch (err) {
+      console.error("ERROR:", err);
+      alert("No se pudo enviar, intenta más tarde ❌");
     }
-    
-    // --- Éxito ---
-    // (Aquí es donde en el futuro llamarías a tu API)
-    console.log('Datos enviados:', { name, email });
-    setSuccess(`¡Gracias por tu interés, ${name}! Recibirás noticias de Azules Esports.`);
-    setName('');
-    setEmail('');
-};
+  };
 
-return (
-    <div className="newsletter-form-container">
-    <h2>¡Recibe más info de Azules!</h2>
-    <p>Suscríbete para recibir noticias, acceso a torneos y más.</p>
-    
-      {/* Mostramos mensaje de éxito o error */}
-    {success && <p className="form-success">{success}</p>}
-    {error && <p className="form-error">{error}</p>}
+  return (
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Tu nombre"
+        value={nombre}
+        onChange={(e) => setNombre(e.target.value)}
+        required
+      />
 
-      {!success && ( // Ocultamos el form si ya se suscribió
-        <form onSubmit={handleSubmit}>
-        <div className="form-group">
-            <label htmlFor="name">Nombre</label>
-            <input 
-            type="text" 
-            id="name" 
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            />
-        </div>
-        <div className="form-group">
-            <label htmlFor="email">Correo Electrónico</label>
-            <input 
-            type="email" 
-            id="email" 
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            />
-        </div>
-        <button type="submit" className="form-button">Suscribirme</button>
-        </form>
-    )}
-    </div>
-);
+      <input
+        type="email"
+        placeholder="Correo electrónico"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+
+      <textarea
+        placeholder="Tu mensaje..."
+        value={mensaje}
+        onChange={(e) => setMensaje(e.target.value)}
+        required
+      />
+
+      <button type="submit" className="btn-enviar">
+        Enviar 📨
+      </button>
+    </form>
+  );
 }
 
 export default NewsletterForm;

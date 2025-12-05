@@ -1,0 +1,46 @@
+/* Register.css — formulario similar al login */
+
+.register-container {
+  max-width: 400px;
+  margin: 120px auto;
+  background: rgba(0, 34, 85, 0.85);
+  padding: 32px;
+  border-radius: 14px;
+  text-align: center;
+  color: white;
+}
+
+.register-container h2 {
+  margin-bottom: 18px;
+  color: #00b2ff;
+  text-shadow: 0 0 8px #00b2ff;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.register-form input {
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.register-form button {
+  background: #00b2ff;
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s ease;
+}
+
+.register-form button:hover {
+  background: #0086c7;
+}

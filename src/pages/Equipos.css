@@ -1,79 +1,119 @@
-/* Equipos.css — versión "hard reset" para imágenes descontroladas */
-.equipos-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  padding: 3rem 1rem;
-  background: #f4f7fb; /* fondo claro para la sección */
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
-/* card fija y con overflow oculto */
-.equipo-card {
-  background-color: #012a63;
-  border: 2px solid #004aad;
-  border-radius: 12px;
-  width: 320px;            /* ancho fijo */
-  max-width: 320px;
-  height: auto;
+/* Fondo de toda la pantalla */
+.equiposContainer {
   text-align: center;
-  color: #fff;
-  box-shadow: 0 0 15px rgba(0, 90, 255, 0.15);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
-  overflow: hidden;        /* importante: recorta lo que sobresalga */
+  color: white;
+  padding: 50px 0;
+}
+
+/* Títulos */
+.title {
+  font-size: 32px;
+  margin-bottom: 35px;
+  font-weight: 600;
+}
+
+/* Cards de equipos oficiales */
+.cardContainer {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
 }
 
-/* contenedor de imagen con tamaño fijo */
-.equipo-image-container {
+.card {
+  background: #bec1c5;
+  width: 320px;
+  border-radius: 14px;
+  padding-bottom: 15px;
+  box-shadow: 0 0 8px #dddee0;
+  transition: transform 0.2s ease-in;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card img {
   width: 100%;
-  height: 200px;           /* altura fija y consistente */
-  overflow: hidden;
-  flex: 0 0 200px;         /* evita que crezca */
-  display: block;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
 }
 
-/* img ocupa el 100% del contenedor y se recorta proporcionalmente */
-.equipo-image-container img {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center center;
-  border-bottom: 2px solid #004aad;
+.card h3 {
+  margin-top: 12px;
 }
 
-/* contenido textual */
-.equipo-card .contenido {
-padding: 1rem;
-flex: 1 1 auto;
+.card p {
+  margin: 5px 0 10px 0;
 }
 
-.equipo-card h2 {
-margin: 0.6rem 0 0.3rem;
-font-size: 1.25rem;
-color: #ffcc00;
+/* ⭐ Recomendados */
+.recSection {
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 10px;
 }
 
-.equipo-card p {
-margin: 0;
-color: #cfd8dc;
-font-size: 0.95rem;
+/* Ítems recomendados */
+.recCard {
+  background: #132f56;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
 }
 
-/* botón */
-.equipo-btn {
-display: inline-block;
-margin: 1rem auto 1.2rem;
-background-color: #004aad;
-color: #fff;
-padding: 0.5rem 1rem;
-border-radius: 10px;
-text-decoration: none;
-font-weight: 600;
+.noData {
+  font-style: italic;
+  color: #ddd;
+  margin: 20px 0;
 }
 
-.equipo-btn:hover { background-color: #ffcc00; color: #000; }
+/* Form para agregar recomendación */
+.formRec {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 25px;
+}
+
+.formRec input {
+  width: 35%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+.formRec button {
+  padding: 10px 18px;
+  background-color: #0077ff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+}
+
+.formRec button:hover {
+  background-color: #005ec4;
+}
+
+/* Eliminar */
+.btnDelete {
+  background: red;
+  border: none;
+  cursor: pointer;
+  color: white;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.btnDelete:hover {
+  background-color: #c20000;
+}
