@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 // Importamos nuestra lógica de validación
 import { validateEmail, validateName } from '../utils/validators';
-import '.common/NewsletterForm.css';
+import './NewsletterForm.css';
+
+
 
 function NewsletterForm() {
 const [name, setName] = useState('');
